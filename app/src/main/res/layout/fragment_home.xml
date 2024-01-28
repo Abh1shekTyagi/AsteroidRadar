@@ -24,24 +24,25 @@
             app:srcCompat="@drawable/placeholder_picture_of_day" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textAlignment="center"
             style="@style/header"
+            android:textSize="20sp"
             android:background="@color/black"
-            android:alpha=".3"
             android:paddingBottom="10dp"
             app:pictureText="@{pictureOfDay.description}"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_picture_of_the_day"/>
+            app:layout_constraintTop_toBottomOf="@+id/iv_picture_of_the_day"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_asteroid_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_picture_of_the_day"
+            app:layout_constraintTop_toBottomOf="@+id/title"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
