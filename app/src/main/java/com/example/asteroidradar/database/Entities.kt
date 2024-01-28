@@ -48,5 +48,5 @@ fun List<AsteroidEntity>.asDomainModel(): List<Asteroid> {
 }
 
 fun PicturesByDay.asDomainModel(): PictureOfTheDay {
-    return PictureOfTheDay(url = this.url)
+    return PictureOfTheDay(url = this.url, description = this.title)
 }
