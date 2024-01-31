@@ -12,16 +12,16 @@ import kotlinx.coroutines.launch
 class HomeViewModel(application: Application): AndroidViewModel(application) {
 
     private val  database = getDatabase(application)
-    private val videosRepository = AsteroidRepository(database, context = application.applicationContext)
+    private val repository = AsteroidRepository(database, context = application.applicationContext)
 
     init {
         viewModelScope.launch {
-            videosRepository.getAsteroids()
-            videosRepository.getPictureOfDay()
+            repository.getAsteroids()
+            repository.getPictureOfDay()
         }
     }
-    val asteroidDataList = videosRepository.asteroids
-    val picturesByDay = videosRepository.pictureOfTheDay
+    val asteroidDataList = repository.asteroids
+    val picturesByDay = repository.pictureOfTheDay
 
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

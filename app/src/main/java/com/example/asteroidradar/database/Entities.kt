@@ -36,6 +36,7 @@ fun List<AsteroidEntity>.asDomainModel(): List<Asteroid> {
     return map {
         Asteroid(
             id = it.id,
+            isHeader = false,
             absoluteMagnitude = it.absoluteMagnitude,
             codename = it.codename,
             closeApproachDate = it.closeApproachDate,
@@ -48,5 +49,8 @@ fun List<AsteroidEntity>.asDomainModel(): List<Asteroid> {
 }
 
 fun PicturesByDay.asDomainModel(): PictureOfTheDay {
-    return PictureOfTheDay(url = this.url, description = this.title)
+    return PictureOfTheDay(
+        id = this.id,
+        url = this.url,
+        description = this.title)
 }

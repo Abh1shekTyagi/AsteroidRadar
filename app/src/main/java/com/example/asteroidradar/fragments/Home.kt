@@ -42,14 +42,13 @@ class Home : Fragment() {
     }
 
     private fun initObserver() {
-        viewModel.asteroidDataList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-
         viewModel.picturesByDay.observe(viewLifecycleOwner){
             it?.let {
-                binding.pictureOfDay = it
+                adapter.addHeader(it)
             }
+        }
+        viewModel.asteroidDataList.observe(viewLifecycleOwner) {
+            adapter.addList(it)
         }
     }
 
