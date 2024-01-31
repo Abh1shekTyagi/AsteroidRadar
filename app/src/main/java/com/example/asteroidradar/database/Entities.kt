@@ -36,7 +36,6 @@ fun List<AsteroidEntity>.asDomainModel(): List<Asteroid> {
     return map {
         Asteroid(
             id = it.id,
-            isHeader = false,
             absoluteMagnitude = it.absoluteMagnitude,
             codename = it.codename,
             closeApproachDate = it.closeApproachDate,

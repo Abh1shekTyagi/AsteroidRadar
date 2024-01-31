@@ -34,16 +34,8 @@ class AsteroidDetails : Fragment() {
     }
     private fun showAlertDialog() {
         val alertDialogBuilder = context?.let { AlertDialog.Builder(it) }
-
-        // Set the title and message for the dialog
         alertDialogBuilder?.setMessage(R.string.astronomica_unit_explanation)
-
-        // Set positive button and its click listener
-        alertDialogBuilder?.setPositiveButton("Understood") { dialog, which ->
-            // Do something when the OK button is clicked
-            // You can leave this empty if you just want to close the dialog
-        }
-        // Create and show the alert dialog
+        alertDialogBuilder?.setPositiveButton("Understood") { dialog, which -> }
         val alertDialog: AlertDialog? = alertDialogBuilder?.create()
         alertDialog?.show()
     }
