@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import androidx.lifecycle.map
 import com.example.asteroidradar.database.AsteroidDatabase
 import com.example.asteroidradar.database.asDomainModel
+import com.example.asteroidradar.domain.Asteroid
 import com.example.asteroidradar.network.Network
 import com.example.asteroidradar.network.asDatabaseModel
 import com.udacity.asteroidradar.Constants
@@ -16,7 +17,13 @@ import java.util.Calendar
 import java.util.Locale
 
 class AsteroidRepository(private val database: AsteroidDatabase, private val context: Context) {
-    val asteroids = database.asteroidDao.getAll().map {
+    private val calendar = Calendar.getInstance()
+    private val currentTime = calendar.time
+
+    @SuppressLint("WeekBasedYear")
+    private val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
+
+    val asteroids = database.asteroidDao.getAsteroidsLiveData().map {
         it.asDomainModel()
     }
 
@@ -34,9 +41,6 @@ class AsteroidRepository(private val database: AsteroidDatabase, private val con
             if (networkInfo != null) {
                 val asteroidList = Network.asteroid.getAsteroidList()
                 database.asteroidDao.insertAll(*asteroidList.asDatabaseModel())
-                val calendar = Calendar.getInstance()
-                val currentTime = calendar.time
-                val dateFormat = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault())
                 database.asteroidDao.deletePassedAsteroids(dateFormat.format(currentTime))
             }
         }
@@ -52,5 +56,22 @@ class AsteroidRepository(private val database: AsteroidDatabase, private val con
                 database.asteroidDao.insertPicture(Network.asteroid.getPicture().asDatabaseModel())
             }
         }
+    }
+
+    suspend fun getTodayAsteroids(): List<Asteroid> {
+        return database.asteroidDao.getTodayAsteroids(dateFormat.format(currentTime))
+            .asDomainModel()
+    }
+
+    suspend fun getHazardousAsteroids(): List<Asteroid> {
+        return database.asteroidDao.getHazardousAsteroids().asDomainModel()
+    }
+
+    suspend fun getNotHazardousAsteroids(): List<Asteroid> {
+        return database.asteroidDao.getNotHazardousAsteroids().asDomainModel()
+    }
+
+    suspend fun getAllAsteroids(): List<Asteroid>{
+        return database.asteroidDao.getAllAsteroids().asDomainModel()
     }
 }

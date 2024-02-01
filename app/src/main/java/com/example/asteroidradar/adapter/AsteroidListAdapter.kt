@@ -17,7 +17,7 @@ import kotlinx.coroutines.withContext
 
 private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_ITEM = 1
-class AsteroidListAdapter(private val clickListener: AsteroidClickListener): ListAdapter<Item, RecyclerView.ViewHolder>(DiffCallback) {
+class AsteroidListAdapter(private val clickListener: AsteroidClickListener): ListAdapter<Item, ViewHolder>(DiffCallback) {
     private val adapterScope = CoroutineScope(Dispatchers.Default)
     private var pictureOfTheDay: PictureOfTheDay? = null
     private var listOfAsteroid: List<Asteroid>? = null

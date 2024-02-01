@@ -51,5 +51,6 @@ fun PicturesByDay.asDomainModel(): PictureOfTheDay {
     return PictureOfTheDay(
         id = this.id,
         url = this.url,
-        description = this.title)
+        title = this.title,
+        description = this.explanation)
 }

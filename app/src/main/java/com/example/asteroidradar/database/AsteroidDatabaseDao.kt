@@ -12,7 +12,7 @@ interface AsteroidDatabaseDao {
     suspend fun insertAll(vararg asteroids: AsteroidEntity)
 
     @Query("Select * from asteroid_table order by closeApproachDate")
-    fun getAll():LiveData<List<AsteroidEntity>>
+    fun getAsteroidsLiveData(): LiveData<List<AsteroidEntity>>
 
     @Insert(onConflict = IGNORE)
     suspend fun insertPicture(picturesOfDay: PicturesByDay)
@@ -21,6 +21,19 @@ interface AsteroidDatabaseDao {
     fun getRecentPicture(): LiveData<PicturesByDay?>
 
     @Query("delete from asteroid_table where closeApproachDate < :date")
-    suspend fun deletePassedAsteroids( date: String)
+    suspend fun deletePassedAsteroids(date: String)
+
+    @Query("Select * from asteroid_table where isPotentiallyHazardous = 1")
+    suspend fun getHazardousAsteroids(): List<AsteroidEntity>
+
+    @Query("Select * from asteroid_table where isPotentiallyHazardous = 0")
+    suspend fun getNotHazardousAsteroids(): List<AsteroidEntity>
+
+    @Query("Select * from asteroid_table where closeApproachDate = :date")
+    suspend fun getTodayAsteroids(date: String): List<AsteroidEntity>
+
+    @Query("Select * from asteroid_table order by closeApproachDate")
+    suspend fun getAllAsteroids(): List<AsteroidEntity>
+
 }
 
