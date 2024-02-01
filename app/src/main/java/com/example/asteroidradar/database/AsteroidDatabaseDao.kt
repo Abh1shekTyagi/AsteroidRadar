@@ -35,5 +35,8 @@ interface AsteroidDatabaseDao {
     @Query("Select * from asteroid_table order by closeApproachDate")
     suspend fun getAllAsteroids(): List<AsteroidEntity>
 
+    @Query("Select * from asteroid_table where closeApproachDate between :startDate and :endDate order by closeApproachDate")
+    suspend fun getWeekAsteroids(startDate: String, endDate: String): List<AsteroidEntity>
+
 }
 

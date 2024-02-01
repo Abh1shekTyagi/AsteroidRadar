@@ -10,6 +10,7 @@ import com.example.asteroidradar.domain.Asteroid
 import com.example.asteroidradar.network.Network
 import com.example.asteroidradar.network.asDatabaseModel
 import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.Constants.DEFAULT_END_DATE_DAYS
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -71,7 +72,15 @@ class AsteroidRepository(private val database: AsteroidDatabase, private val con
         return database.asteroidDao.getNotHazardousAsteroids().asDomainModel()
     }
 
-    suspend fun getAllAsteroids(): List<Asteroid>{
+    suspend fun getAllAsteroids(): List<Asteroid> {
         return database.asteroidDao.getAllAsteroids().asDomainModel()
+    }
+
+    suspend fun getWeekAsteroids(): List<Asteroid> {
+        val startDate = dateFormat.format(currentTime)
+        val calendarInstance = calendar
+        calendarInstance.add(Calendar.DAY_OF_MONTH, DEFAULT_END_DATE_DAYS)
+        val endDate = dateFormat.format(calendarInstance.time)
+        return database.asteroidDao.getWeekAsteroids(startDate, endDate).asDomainModel()
     }
 }

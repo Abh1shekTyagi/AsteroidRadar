@@ -84,6 +84,9 @@ class Home : Fragment() {
                     R.id.today_asteroids -> {
                         viewModel.getTodayAsteroids()
                     }
+                    R.id.week_asteroids -> {
+                        viewModel.getWeekAsteroids()
+                    }
                     R.id.all_asteroids -> {
                         viewModel.getAllAsteroids()
                     }

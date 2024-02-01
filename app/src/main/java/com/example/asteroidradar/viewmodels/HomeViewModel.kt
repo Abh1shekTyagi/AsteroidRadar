@@ -53,6 +53,12 @@ class HomeViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun getWeekAsteroids() {
+        viewModelScope.launch {
+            _filteredAsteroids.postValue(repository.getWeekAsteroids())
+        }
+    }
+
     class Factory(val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
