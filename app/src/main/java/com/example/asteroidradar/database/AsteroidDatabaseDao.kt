@@ -23,10 +23,10 @@ interface AsteroidDatabaseDao {
     @Query("delete from asteroid_table where closeApproachDate < :date")
     suspend fun deletePassedAsteroids(date: String)
 
-    @Query("Select * from asteroid_table where isPotentiallyHazardous = 1")
+    @Query("Select * from asteroid_table where isPotentiallyHazardous = 1 order by closeApproachDate")
     suspend fun getHazardousAsteroids(): List<AsteroidEntity>
 
-    @Query("Select * from asteroid_table where isPotentiallyHazardous = 0")
+    @Query("Select * from asteroid_table where isPotentiallyHazardous = 0 order by closeApproachDate")
     suspend fun getNotHazardousAsteroids(): List<AsteroidEntity>
 
     @Query("Select * from asteroid_table where closeApproachDate = :date")
